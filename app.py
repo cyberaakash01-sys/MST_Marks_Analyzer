@@ -447,61 +447,65 @@ st.markdown("""
 
     [data-testid="stSidebar"] div[role="radiogroup"],
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] {
-        gap: 6px !important;
+        gap: 8px !important;
         display: flex !important;
         flex-direction: column !important;
         width: 100% !important;
     }
 
-    /* Radio button option pill container */
+    /* Radio button option pill container - Clean horizontal row */
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label,
     [data-testid="stSidebar"] div[role="radiogroup"] label,
     [data-testid="stSidebar"] [data-baseweb="radio"] {
-        padding: 0.72rem 1rem !important;
+        padding: 0.75rem 1.1rem !important;
         border-radius: 12px !important;
-        font-size: 1.04rem !important;
-        font-weight: 500 !important;
-        letter-spacing: -0.2px !important;
         transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-        margin-bottom: 0.3rem !important;
+        margin-bottom: 0.35rem !important;
         cursor: pointer !important;
         display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
         align-items: center !important;
+        gap: 12px !important;
         border: 1px solid transparent !important;
         background: transparent !important;
         width: 100% !important;
         box-sizing: border-box !important;
     }
 
-    /* Hide the radio circle (1st div child of label) */
+    /* Radio circle on the left */
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label > div:first-child,
     [data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child,
-    [data-testid="stSidebar"] [data-baseweb="radio"] > div:first-child,
-    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label input[type="radio"],
-    [data-testid="stSidebar"] div[role="radiogroup"] label input[type="radio"],
-    [data-testid="stSidebar"] [data-baseweb="radio"] input[type="radio"] {
-        display: none !important;
+    [data-testid="stSidebar"] [data-baseweb="radio"] > div:first-child {
+        flex-shrink: 0 !important;
+        margin: 0 !important;
+        display: flex !important;
+        align-items: center !important;
     }
 
-    /* Ensure label text (last div child) is 100% visible, clean and full width */
+    /* Option text on the right side of the circle - larger font */
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label > div:last-child,
     [data-testid="stSidebar"] div[role="radiogroup"] label > div:last-child,
     [data-testid="stSidebar"] [data-baseweb="radio"] > div:last-child {
-        display: block !important;
-        width: 100% !important;
+        flex: 1 1 auto !important;
+        display: flex !important;
+        align-items: center !important;
         color: #e2e8f0 !important;
-        font-size: 1.02rem !important;
-        font-weight: 500 !important;
+        font-size: 1.12rem !important;
+        font-weight: 600 !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label p,
     [data-testid="stSidebar"] div[role="radiogroup"] label p,
     [data-testid="stSidebar"] [data-baseweb="radio"] p {
         color: inherit !important;
-        font-size: inherit !important;
-        font-weight: inherit !important;
+        font-size: 1.12rem !important;
+        font-weight: 600 !important;
         margin: 0 !important;
         padding: 0 !important;
-        line-height: 1.4 !important;
+        line-height: 1.3 !important;
+        white-space: nowrap !important;
     }
 
     /* Hover effect */
@@ -519,8 +523,6 @@ st.markdown("""
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label[aria-checked="true"],
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label[data-checked="true"] {
         background: rgba(59, 130, 246, 0.22) !important;
-        color: #60a5fa !important;
-        font-weight: 700 !important;
         border: 1px solid rgba(59, 130, 246, 0.45) !important;
         box-shadow: 0 4px 14px rgba(59, 130, 246, 0.2) !important;
     }
