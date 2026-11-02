@@ -1,0 +1,33 @@
+
+# Environment variables and secrets
+.env
+.env.*
+db.env
+.streamlit/secrets.toml
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Student data (private)
+marks.csv
+*.xlsx
+*.xls
+
+# Generated reports
+reports/
+*.pdf
+
+# IDE settings
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
