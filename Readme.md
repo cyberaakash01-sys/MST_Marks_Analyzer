@@ -97,17 +97,11 @@ streamlit run app.py
 ### Dashboard
 ![Dashboard](assets/dashboard.png)
 
-### Student Analysis
-![Student Analysis](assets/student-analysis.png)
-
 ### Class Analysis
 ![Class Analysis](assets/class_analysis.png)
 
 ### Visualization
 ![Visualization](assets/visualization.png)
-
-### Record Management
-![Record Management](assets/record-management.png)
 
 ### Report generator
 ![Report Generator](assets/report_generator.png)
