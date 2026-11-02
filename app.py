@@ -317,27 +317,34 @@ st.markdown("""
     }
 
     /* Password Input Container: reserve room for right-side eye button */
-    div[data-testid="stTextInput"]:has(input[type="password"]) div[data-baseweb="input"] > div,
-    div[data-baseweb="input"]:has(button) > div,
+    div[data-testid="stTextInput"]:has(input[type="password"]) div[data-baseweb="input"],
+    div[data-testid="stTextInput"]:has(input[type="password"]) div[data-baseweb="base-input"],
+    div[data-baseweb="input"]:has(button),
     div[data-baseweb="base-input"]:has(button) {
         position: relative !important;
-        padding-right: 100px !important;
+        overflow: hidden !important;
+    }
+    div[data-testid="stTextInput"]:has(input[type="password"]) input,
+    div[data-testid="stTextInput"]:has(input[type="password"]) input[type="password"] {
+        padding-right: 52px !important;
     }
 
-    /* Password Eye Button - Pinned to right: 0, full height, centered eye icon */
+    /* Password Eye Button - Pinned flush to right edge, perfectly inside container */
     div[data-baseweb="input"] button,
     div[data-baseweb="base-input"] button,
-    button[aria-label*="password"],
-    button[title*="password"] {
+    div[data-testid="stTextInput"] button[aria-label*="password" i],
+    div[data-testid="stTextInput"] button[title*="password" i],
+    button[aria-label*="password" i],
+    button[title*="password" i] {
         position: absolute !important;
         top: 0 !important;
         bottom: 0 !important;
-        right: -20px !important;
+        right: 0 !important;
         height: 100% !important;
-        width: 58px !important;
-        min-width: 58px !important;
-        max-width: 58px !important;
-        transform: translateX(0) !important;
+        width: 48px !important;
+        min-width: 48px !important;
+        max-width: 48px !important;
+        transform: none !important;
         background: #facc15 !important;
         background-color: #facc15 !important;
         border: none !important;
@@ -353,18 +360,20 @@ st.markdown("""
     }
     div[data-baseweb="input"] button:hover,
     div[data-baseweb="base-input"] button:hover,
-    button[aria-label*="password"]:hover {
+    div[data-testid="stTextInput"] button[aria-label*="password" i]:hover,
+    button[aria-label*="password" i]:hover {
         background: #eab308 !important;
         background-color: #eab308 !important;
         transform: none !important;
     }
     div[data-baseweb="input"] button svg,
     div[data-baseweb="base-input"] button svg,
-    button[aria-label*="password"] svg {
+    div[data-testid="stTextInput"] button svg,
+    button[aria-label*="password" i] svg {
         fill: #0f172a !important;
         color: #0f172a !important;
-        width: 22px !important;
-        height: 22px !important;
+        width: 20px !important;
+        height: 20px !important;
         display: block !important;
         margin: auto !important;
     }
@@ -419,14 +428,21 @@ st.markdown("""
     }
 
     /* Apple macOS Style Sidebar Navigation */
-    section[data-testid="stSidebar"] {
+    section[data-testid="stSidebar"],
+    [data-testid="stSidebar"] {
         background-color: #1E2638 !important;
         border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
     }
-    section[data-testid="stSidebar"] div[role="radiogroup"] {
+    section[data-testid="stSidebar"] div[role="radiogroup"],
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"],
+    [data-testid="stSidebar"] div[role="radiogroup"] {
         gap: 6px !important;
+        display: flex !important;
+        flex-direction: column !important;
     }
-    section[data-testid="stSidebar"] div[role="radiogroup"] > label {
+    section[data-testid="stSidebar"] div[role="radiogroup"] label,
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label {
         padding: 0.72rem 1rem !important;
         border-radius: 12px !important;
         font-size: 1.04rem !important;
@@ -438,26 +454,61 @@ st.markdown("""
         display: flex !important;
         align-items: center !important;
         border: 1px solid transparent !important;
-    }
-    /* Hide default radio circle for clean Apple-style sidebar buttons */
-    section[data-testid="stSidebar"] div[role="radiogroup"] > label > div:first-child {
-        display: none !important;
-    }
-    section[data-testid="stSidebar"] div[role="radiogroup"] > label > div:last-child {
+        background: transparent !important;
         width: 100% !important;
     }
-    section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
+    /* Hide default radio circle for clean Apple-style sidebar buttons across all versions */
+    [data-testid="stSidebar"] [data-testid="stRadio"] label > input[type="radio"] + div,
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label > input[type="radio"] + div,
+    [data-testid="stSidebar"] div[role="radiogroup"] label > input[type="radio"] + div,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-of-type,
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label > div:first-of-type,
+    [data-testid="stSidebar"] div[role="radiogroup"] label > div:first-of-type,
+    [data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label input[type="radio"],
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label input[type="radio"],
+    [data-testid="stSidebar"] div[role="radiogroup"] label input[type="radio"] {
+        display: none !important;
+    }
+    [data-testid="stSidebar"] [data-testid="stRadio"] label > div:last-child,
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label > div:last-child,
+    [data-testid="stSidebar"] div[role="radiogroup"] label > div:last-child {
+        width: 100% !important;
+    }
+    [data-testid="stSidebar"] [data-testid="stRadio"] label p,
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label p,
+    [data-testid="stSidebar"] div[role="radiogroup"] label p {
+        color: #e2e8f0 !important;
+        font-size: 1.02rem !important;
+        font-weight: 500 !important;
+        margin: 0 !important;
+        line-height: 1.4 !important;
+    }
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:hover,
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label:hover,
+    [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
         background: rgba(255, 255, 255, 0.08) !important;
         transform: translateX(4px) !important;
     }
     /* Active selected navigation item */
-    section[data-testid="stSidebar"] div[role="radiogroup"] > label:has(input:checked),
-    section[data-testid="stSidebar"] div[role="radiogroup"] > label[data-checked="true"] {
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked),
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label:has(input:checked),
+    [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked),
+    [data-testid="stSidebar"] [data-testid="stRadio"] label[aria-checked="true"],
+    [data-testid="stSidebar"] [data-testid="stRadio"] label[data-checked="true"] {
         background: rgba(59, 130, 246, 0.2) !important;
         color: #60a5fa !important;
         font-weight: 700 !important;
         border: 1px solid rgba(59, 130, 246, 0.4) !important;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+    }
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) p,
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label:has(input:checked) p,
+    [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) p,
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) div,
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label:has(input:checked) div {
+        color: #60a5fa !important;
+        font-weight: 700 !important;
     }
 
     /* Sleek Apple-style Logout Button */
