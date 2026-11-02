@@ -316,34 +316,43 @@ st.markdown("""
         box-shadow: 0 6px 20px rgba(56, 189, 248, 0.25) !important;
     }
 
-    /* Password Input Container: reserve room for right-side eye button */
-    div[data-testid="stTextInput"]:has(input[type="password"]) div[data-baseweb="input"],
-    div[data-testid="stTextInput"]:has(input[type="password"]) div[data-baseweb="base-input"],
-    div[data-baseweb="input"]:has(button),
-    div[data-baseweb="base-input"]:has(button) {
-        position: relative !important;
+    /* Password Input Container: natural flex alignment */
+    div[data-testid="stTextInput"]:has(input[type="password"]) div[data-baseweb="input"] > div,
+    div[data-testid="stTextInput"]:has(input[type="password"]) div[data-baseweb="base-input"] > div {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        padding-right: 0 !important;
         overflow: hidden !important;
     }
-    div[data-testid="stTextInput"]:has(input[type="password"]) input,
-    div[data-testid="stTextInput"]:has(input[type="password"]) input[type="password"] {
-        padding-right: 52px !important;
+    div[data-testid="stTextInput"]:has(input[type="password"]) input {
+        flex: 1 1 auto !important;
+        padding-right: 8px !important;
     }
 
-    /* Password Eye Button - Pinned flush to right edge, perfectly inside container */
-    div[data-baseweb="input"] button,
-    div[data-baseweb="base-input"] button,
+    /* Password Eye Button - Pinned naturally inside input box */
+    div[data-testid="stTextInput"] div[data-baseweb="input"] > div > div:has(button),
+    div[data-testid="stTextInput"] div[data-baseweb="input"] > div > div:last-child {
+        display: flex !important;
+        align-items: center !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
     div[data-testid="stTextInput"] button[aria-label*="password" i],
     div[data-testid="stTextInput"] button[title*="password" i],
+    div[data-baseweb="input"] button,
     button[aria-label*="password" i],
     button[title*="password" i] {
-        position: absolute !important;
-        top: 0 !important;
-        bottom: 0 !important;
-        right: 0 !important;
+        position: relative !important;
+        top: auto !important;
+        bottom: auto !important;
+        right: auto !important;
         height: 100% !important;
-        width: 48px !important;
-        min-width: 48px !important;
-        max-width: 48px !important;
+        min-height: 40px !important;
+        width: 46px !important;
+        min-width: 46px !important;
+        max-width: 46px !important;
         transform: none !important;
         background: #facc15 !important;
         background-color: #facc15 !important;
@@ -356,19 +365,16 @@ st.markdown("""
         justify-content: center !important;
         box-shadow: none !important;
         cursor: pointer !important;
-        z-index: 5 !important;
     }
-    div[data-baseweb="input"] button:hover,
-    div[data-baseweb="base-input"] button:hover,
     div[data-testid="stTextInput"] button[aria-label*="password" i]:hover,
+    div[data-baseweb="input"] button:hover,
     button[aria-label*="password" i]:hover {
         background: #eab308 !important;
         background-color: #eab308 !important;
         transform: none !important;
     }
+    div[data-testid="stTextInput"] button[aria-label*="password" i] svg,
     div[data-baseweb="input"] button svg,
-    div[data-baseweb="base-input"] button svg,
-    div[data-testid="stTextInput"] button svg,
     button[aria-label*="password" i] svg {
         fill: #0f172a !important;
         color: #0f172a !important;
@@ -433,16 +439,22 @@ st.markdown("""
         background-color: #1E2638 !important;
         border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
     }
-    section[data-testid="stSidebar"] div[role="radiogroup"],
-    [data-testid="stSidebar"] [data-testid="stRadioGroup"],
-    [data-testid="stSidebar"] div[role="radiogroup"] {
+
+    /* Hide the 'Navigation Menu' title above the radio options */
+    [data-testid="stSidebar"] [data-testid="stRadio"] > label {
+        display: none !important;
+    }
+
+    [data-testid="stSidebar"] div[role="radiogroup"],
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] {
         gap: 6px !important;
         display: flex !important;
         flex-direction: column !important;
     }
-    section[data-testid="stSidebar"] div[role="radiogroup"] label,
+
+    /* Radio button option pill container */
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label,
-    [data-testid="stSidebar"] [data-testid="stRadio"] label {
+    [data-testid="stSidebar"] div[role="radiogroup"] label {
         padding: 0.72rem 1rem !important;
         border-radius: 12px !important;
         font-size: 1.04rem !important;
@@ -457,56 +469,53 @@ st.markdown("""
         background: transparent !important;
         width: 100% !important;
     }
-    /* Hide default radio circle for clean Apple-style sidebar buttons across all versions */
-    [data-testid="stSidebar"] [data-testid="stRadio"] label > input[type="radio"] + div,
-    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label > input[type="radio"] + div,
-    [data-testid="stSidebar"] div[role="radiogroup"] label > input[type="radio"] + div,
-    [data-testid="stSidebar"] [data-testid="stRadio"] label > div:first-of-type,
-    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label > div:first-of-type,
-    [data-testid="stSidebar"] div[role="radiogroup"] label > div:first-of-type,
-    [data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child,
-    [data-testid="stSidebar"] [data-testid="stRadio"] label input[type="radio"],
+
+    /* Hide ONLY the radio circle dot, NEVER hide the text! */
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label > div:not([data-testid="stMarkdownContainer"]),
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label > div[aria-hidden="true"],
+    [data-testid="stSidebar"] div[role="radiogroup"] label > div:not([data-testid="stMarkdownContainer"]),
+    [data-testid="stSidebar"] div[role="radiogroup"] label > div[aria-hidden="true"],
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label input[type="radio"],
     [data-testid="stSidebar"] div[role="radiogroup"] label input[type="radio"] {
         display: none !important;
     }
-    [data-testid="stSidebar"] [data-testid="stRadio"] label > div:last-child,
-    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label > div:last-child,
-    [data-testid="stSidebar"] div[role="radiogroup"] label > div:last-child {
+
+    /* Ensure label text is 100% visible, properly styled and full width */
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label div[data-testid="stMarkdownContainer"],
+    [data-testid="stSidebar"] div[role="radiogroup"] label div[data-testid="stMarkdownContainer"] {
+        display: block !important;
         width: 100% !important;
     }
-    [data-testid="stSidebar"] [data-testid="stRadio"] label p,
-    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label p,
-    [data-testid="stSidebar"] div[role="radiogroup"] label p {
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label div[data-testid="stMarkdownContainer"] p,
+    [data-testid="stSidebar"] div[role="radiogroup"] label div[data-testid="stMarkdownContainer"] p {
         color: #e2e8f0 !important;
         font-size: 1.02rem !important;
         font-weight: 500 !important;
         margin: 0 !important;
         line-height: 1.4 !important;
     }
-    [data-testid="stSidebar"] [data-testid="stRadio"] label:hover,
+
+    /* Hover effect */
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label:hover,
     [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
         background: rgba(255, 255, 255, 0.08) !important;
         transform: translateX(4px) !important;
     }
+
     /* Active selected navigation item */
-    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked),
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label:has(input:checked),
     [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked),
-    [data-testid="stSidebar"] [data-testid="stRadio"] label[aria-checked="true"],
-    [data-testid="stSidebar"] [data-testid="stRadio"] label[data-checked="true"] {
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label[aria-checked="true"],
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label[data-checked="true"] {
         background: rgba(59, 130, 246, 0.2) !important;
         color: #60a5fa !important;
         font-weight: 700 !important;
         border: 1px solid rgba(59, 130, 246, 0.4) !important;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
     }
-    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) p,
-    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label:has(input:checked) p,
-    [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) p,
-    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) div,
-    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label:has(input:checked) div {
+
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label:has(input:checked) div[data-testid="stMarkdownContainer"] p,
+    [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) div[data-testid="stMarkdownContainer"] p {
         color: #60a5fa !important;
         font-weight: 700 !important;
     }
