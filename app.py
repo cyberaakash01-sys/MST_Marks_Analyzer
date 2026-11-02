@@ -450,54 +450,64 @@ st.markdown("""
         gap: 6px !important;
         display: flex !important;
         flex-direction: column !important;
+        width: 100% !important;
     }
 
     /* Radio button option pill container */
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label,
-    [data-testid="stSidebar"] div[role="radiogroup"] label {
+    [data-testid="stSidebar"] div[role="radiogroup"] label,
+    [data-testid="stSidebar"] [data-baseweb="radio"] {
         padding: 0.72rem 1rem !important;
         border-radius: 12px !important;
         font-size: 1.04rem !important;
         font-weight: 500 !important;
         letter-spacing: -0.2px !important;
         transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-        margin-bottom: 0.25rem !important;
+        margin-bottom: 0.3rem !important;
         cursor: pointer !important;
         display: flex !important;
         align-items: center !important;
         border: 1px solid transparent !important;
         background: transparent !important;
         width: 100% !important;
+        box-sizing: border-box !important;
     }
 
-    /* Hide ONLY the radio circle dot, NEVER hide the text! */
-    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label > div:not([data-testid="stMarkdownContainer"]),
-    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label > div[aria-hidden="true"],
-    [data-testid="stSidebar"] div[role="radiogroup"] label > div:not([data-testid="stMarkdownContainer"]),
-    [data-testid="stSidebar"] div[role="radiogroup"] label > div[aria-hidden="true"],
+    /* Hide the radio circle (1st div child of label) */
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label > div:first-child,
+    [data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child,
+    [data-testid="stSidebar"] [data-baseweb="radio"] > div:first-child,
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label input[type="radio"],
-    [data-testid="stSidebar"] div[role="radiogroup"] label input[type="radio"] {
+    [data-testid="stSidebar"] div[role="radiogroup"] label input[type="radio"],
+    [data-testid="stSidebar"] [data-baseweb="radio"] input[type="radio"] {
         display: none !important;
     }
 
-    /* Ensure label text is 100% visible, properly styled and full width */
-    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label div[data-testid="stMarkdownContainer"],
-    [data-testid="stSidebar"] div[role="radiogroup"] label div[data-testid="stMarkdownContainer"] {
+    /* Ensure label text (last div child) is 100% visible, clean and full width */
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label > div:last-child,
+    [data-testid="stSidebar"] div[role="radiogroup"] label > div:last-child,
+    [data-testid="stSidebar"] [data-baseweb="radio"] > div:last-child {
         display: block !important;
         width: 100% !important;
-    }
-    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label div[data-testid="stMarkdownContainer"] p,
-    [data-testid="stSidebar"] div[role="radiogroup"] label div[data-testid="stMarkdownContainer"] p {
         color: #e2e8f0 !important;
         font-size: 1.02rem !important;
         font-weight: 500 !important;
+    }
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label p,
+    [data-testid="stSidebar"] div[role="radiogroup"] label p,
+    [data-testid="stSidebar"] [data-baseweb="radio"] p {
+        color: inherit !important;
+        font-size: inherit !important;
+        font-weight: inherit !important;
         margin: 0 !important;
+        padding: 0 !important;
         line-height: 1.4 !important;
     }
 
     /* Hover effect */
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label:hover,
-    [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+    [data-testid="stSidebar"] div[role="radiogroup"] label:hover,
+    [data-testid="stSidebar"] [data-baseweb="radio"]:hover {
         background: rgba(255, 255, 255, 0.08) !important;
         transform: translateX(4px) !important;
     }
@@ -505,17 +515,22 @@ st.markdown("""
     /* Active selected navigation item */
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label:has(input:checked),
     [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked),
+    [data-testid="stSidebar"] [data-baseweb="radio"]:has(input:checked),
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label[aria-checked="true"],
     [data-testid="stSidebar"] [data-testid="stRadioGroup"] label[data-checked="true"] {
-        background: rgba(59, 130, 246, 0.2) !important;
+        background: rgba(59, 130, 246, 0.22) !important;
         color: #60a5fa !important;
         font-weight: 700 !important;
-        border: 1px solid rgba(59, 130, 246, 0.4) !important;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+        border: 1px solid rgba(59, 130, 246, 0.45) !important;
+        box-shadow: 0 4px 14px rgba(59, 130, 246, 0.2) !important;
     }
 
-    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label:has(input:checked) div[data-testid="stMarkdownContainer"] p,
-    [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) div[data-testid="stMarkdownContainer"] p {
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label:has(input:checked) > div:last-child,
+    [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) > div:last-child,
+    [data-testid="stSidebar"] [data-baseweb="radio"]:has(input:checked) > div:last-child,
+    [data-testid="stSidebar"] [data-testid="stRadioGroup"] label:has(input:checked) p,
+    [data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) p,
+    [data-testid="stSidebar"] [data-baseweb="radio"]:has(input:checked) p {
         color: #60a5fa !important;
         font-weight: 700 !important;
     }
