@@ -93,9 +93,6 @@ streamlit run app.py
 ```
 ## 📸 Application Screenshots
 
-### Login
-![Login](assets/login.png)
-
 ### Dashboard
 ![Dashboard](assets/dashboard.png)
 
