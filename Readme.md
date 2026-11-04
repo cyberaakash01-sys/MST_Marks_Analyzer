@@ -1,6 +1,7 @@
 
 # 📊 MST Marks Analyzer
 
+Student Performance Analytics & Management System
 A web-based Student Marks Management and Academic Performance Analysis System built using Python, Streamlit, Pandas, and PostgreSQL.
 
 The application helps manage student MST records, analyze academic performance, and generate useful insights through interactive visualizations.
